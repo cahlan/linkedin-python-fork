@@ -1,0 +1,7 @@
+modified by Cahlan Sharp (cahlan@gmail.com)
+
+This is a fork of the python-linkedin repo found here: http://code.google.com/p/python-linkedin/
+
+This repo did not include API for network updates found in LinkedIn REST API, and time was of the essence--so I added it in.
+
+This repo may be suddenly outdated and no longer supported if the original Google code repo is updated.
