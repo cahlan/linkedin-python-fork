@@ -435,14 +435,17 @@ class Update(LinkedInModel):
     Wraps data, added by Cahlan Sharp
     """
     def __init__(self):
-      self.id           = None
-      self.user_id      = None
-      self.type         = None
+      self.id             = None
+      self.user_id        = None
+      self.user_firstname = None
+      self.user_lastname  = None
+      self.user_headline  = None
+      self.type           = None
       self.current_status = None
-      self.picture_url  = None
-      self.num_likes    = None
-      self.timestamp    = None
-      self.profile_url  = None
+      self.picture_url    = None
+      self.num_likes      = None
+      self.timestamp      = None
+      self.profile_url    = None
 
     @staticmethod
     def create(xml_string):
@@ -463,7 +466,13 @@ class Update(LinkedInModel):
           if pcontent:
             content = pcontent[0]
             nupdate.user_id = nupdate._get_child(content, "id")
-            nupdate.current_status = nupdate._get_child(content, "current-status")
+            nupdate.user_firstname = nupdate._get_child(content, "first-name")
+            nupdate.user_lastname = nupdate._get_child(content, "last-name")
+            nupdate.user_headline = nupdate._get_child(content, "headline")
+            share_req = content.getElementsByTagName("current-share")
+            if share_req:
+              share_req = share_req[0]
+              nupdate.current_status = nupdate._get_child(share_req, "comment")
             nupdate.picture_url = nupdate._get_child(content, "picture-url")
             profile_req = content.getElementsByTagName("api-standard-profile-request")
             if profile_req:
