@@ -361,8 +361,6 @@ class LinkedIn(object):
             for update in updates:
               nupdate = Update.create(update.toxml())
               if nupdate is not None:
-                print "new update retrieved"
-                print nupdate
                 result.append(nupdate)
  
             return result
@@ -742,7 +740,6 @@ class LinkedIn(object):
         
         if params:
             relative_url = "%s?%s" % (relative_url, self._urlencode(params))
-        print "api url: "+relative_url
         response = self._https_connection(method, relative_url, query_dict, body)
         
         if response:
