@@ -364,8 +364,8 @@ class LinkedIn(object):
                 result.append(nupdate)
  
             return result
-        except ConnectionError:
-            return None
+        except Exception, e:
+            raise
         return []
 
     def send_message(self, subject, message, ids = None, send_yourself = False):
@@ -764,7 +764,7 @@ class LinkedIn(object):
     def _calc_signature(self, url, query_dict, token_secret, method = "GET", update=True):
         query_string = self._quote(self._urlencode(query_dict))
         signature_base_string = "&".join([self._quote(method), self._quote(url), query_string])
-        hashed = hmac.new(self._calc_key(token_secret), signature_base_string, sha)
+        hashed = hmac.new(self._calc_key(token_secret).encode('ascii'), signature_base_string, sha)
         signature = binascii.b2a_base64(hashed.digest())[:-1]
         if update:
             query_dict["oauth_signature"] = signature
